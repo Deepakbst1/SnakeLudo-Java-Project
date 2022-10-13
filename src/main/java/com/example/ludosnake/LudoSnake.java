@@ -15,7 +15,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LudoSnake extends Application {
+public class LudoSnake extends Application 
+{
 
 
     Group tileGroup = new Group();
@@ -39,8 +40,10 @@ public class LudoSnake extends Application {
         root.setPrefSize(width*tileSize,height*tileSize+80);
         root.getChildren().addAll(tileGroup);
 
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+        for (int i = 0; i < height; i++) 
+        {
+            for (int j = 0; j < width; j++) 
+            {
                 Tile tile = new Tile(tileSize,tileSize);
                 tile.setTranslateX(j*tileSize);
                 tile.setTranslateY(i*tileSize);
@@ -60,11 +63,15 @@ public class LudoSnake extends Application {
         Button player1Button = new Button("Player One");
         player1Button.setTranslateX(10);
         player1Button.setTranslateY(yLine);
-        player1Button.setOnAction(new EventHandler<ActionEvent>() {
+        player1Button.setOnAction(new EventHandler<ActionEvent>() 
+        {
             @Override
-            public void handle(ActionEvent actionEvent) {
-                if(gameStart){
-                    if(playerOneTurn){
+            public void handle(ActionEvent actionEvent) 
+            {
+                if(gameStart)
+                {
+                    if(playerOneTurn)
+                    {
                         getDiceValue();
                         randResult.setText( "PlayerOne - " + String.valueOf(diceValue));
                         //move the player
@@ -82,18 +89,20 @@ public class LudoSnake extends Application {
         Button player2Button = new Button("Player Two");
         player2Button.setTranslateX(300);
         player2Button.setTranslateY(yLine);
-        player2Button.setOnAction(new EventHandler<ActionEvent>() {
+        player2Button.setOnAction(new EventHandler<ActionEvent>() 
+        {
             @Override
-            public void handle(ActionEvent actionEvent) {
+            public void handle(ActionEvent actionEvent) 
+            {
                 if(gameStart){
-                    if(playerTwoTurn){
+                    if(playerTwoTurn)
+                    {
                         getDiceValue();
                         randResult.setText("PlayerTwo - " + String.valueOf(diceValue));
                         //move the player
                         playerTwo.movePlayer(diceValue);
                         playerOneTurn = true;
                         playerTwoTurn = false;
-//                        playerTwo.playerAtSnakeOrLadder();
                         gameOver();
                     }
                 }
@@ -103,9 +112,11 @@ public class LudoSnake extends Application {
         gameButton = new Button("Start Game");
         gameButton.setTranslateX(150);
         gameButton.setTranslateY(yLine);
-        gameButton.setOnAction(new EventHandler<ActionEvent>() {
+        gameButton.setOnAction(new EventHandler<ActionEvent>() 
+        {
             @Override
-            public void handle(ActionEvent actionEvent) {
+            public void handle(ActionEvent actionEvent) 
+            {
                 randResult.setText("Started");
                 gameStart = true;
                 gameButton.setText("Game Going");
@@ -127,42 +138,46 @@ public class LudoSnake extends Application {
         return root;
     }
 
-    void gameOver(){
-        if(playerOne.getWinningStatus()==true){
+    void gameOver()
+    {
+        if(playerOne.getWinningStatus()==true)
+        {
             randResult.setText("Player One Won");
             gameButton.setText("Start Again");
             gameStart = false;
         }
-        else if(playerTwo.getWinningStatus()==true){
+        else if(playerTwo.getWinningStatus()==true)
+        {
             randResult.setText("Player Two Won");
             gameButton.setText("Start Again");
             gameStart = false;
         }
     }
 
-    private void getDiceValue(){
+    private void getDiceValue()
+    {
         diceValue = (int)(Math.random()*6+1);
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(LuodSnake.class.getResource("hello-view.fxml"));
+    public void start(Stage stage) throws IOException 
+    {
         Scene scene = new Scene(createContent());
         stage.setTitle("Ludo Snake");
         stage.setScene(scene);
         stage.show();
 
-        AnimationTimer timer = new AnimationTimer() {
+        AnimationTimer timer = new AnimationTimer() 
+        {
             @Override
-            public void handle(long l) {
+            public void handle(long l) 
+            {
                 long currentTime =  System.currentTimeMillis();
                 long dt = currentTime -  Player.lastMovementTime;
-//                System.out.println(currentTime + "  " + Player.lastMovementTime + "   " + dt);
-
-                if(dt>1e3){
+                if(dt>1e3)
+                {
                     Player.lastMovementTime = currentTime;
-//                    System.out.println(currentTime + "  " + Player.lastMovementTime);
-//
+
                     playerOne.playerAtSnakeOrLadder();
                     playerTwo.playerAtSnakeOrLadder();
                 }
